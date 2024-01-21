@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Indicators : MonoBehaviour
 {
+    public GameObject deathScreen;
     public Image healthBar, foodBar, waterBar;
     private Camera mainCamera;
 
@@ -16,9 +19,9 @@ public class Indicators : MonoBehaviour
 
    
 
-    public float secondsToEmptyFood = 60f;
+    public float secondsToEmptyFood = 10f;
 
-    public float secondsToEmptyHealth = 60f;
+    public float secondsToEmptyHealth = 10f;
 
     private float changeFactor = 6f;
  
@@ -53,7 +56,19 @@ public class Indicators : MonoBehaviour
         {
             healthAmount -= 100 / secondsToEmptyHealth * Time.deltaTime;
         }
-        
+
+        if (healthAmount <= 0)
+        {
+            if (!deathScreen.activeSelf)
+            {
+                deathScreen.SetActive(true);
+                Time.timeScale = 0f;
+
+            }
+
+
+        }
+
         uiHealthAmount = Mathf.Lerp(uiHealthAmount, healthAmount, Time.deltaTime * changeFactor);
         healthBar.fillAmount = healthAmount / 100;
     }
@@ -76,9 +91,15 @@ public class Indicators : MonoBehaviour
         {
             healthAmount = 100;
         }
+
+     
+
         else
         {
             healthAmount += changeValue;
         }
     }
+
+ 
+
 }

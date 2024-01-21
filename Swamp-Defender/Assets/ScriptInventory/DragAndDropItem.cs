@@ -14,7 +14,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     private void Start()
     {
-        //ПОСТАВЬТЕ ТЭГ "PLAYER" НА ОБЪЕКТЕ ПЕРСОНАЖА!
+        //ПОСТАВИМ ТЭГ "PLAYER" НА ОБЪЕКТЕ ПЕРСОНАЖА!
         player = GameObject.FindGameObjectWithTag("Player").transform;
         // Находим скрипт InventorySlot в слоте в иерархии
         oldSlot = transform.GetComponentInParent<InventorySlot>();
@@ -25,6 +25,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         if (oldSlot.isEmpty)
             return;
         GetComponent<RectTransform>().position += new Vector3(eventData.delta.x, eventData.delta.y);
+        
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -55,7 +56,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         if (eventData.pointerCurrentRaycast.gameObject.name == "UIBG") // renamed to UIBG
         {
             // Выброс объектов из инвентаря - Спавним префаб обекта перед персонажем
-            GameObject itemObject = Instantiate(oldSlot.item.itemPrefab, player.position + Vector3.up + player.forward, Quaternion.identity);
+            GameObject itemObject = Instantiate(oldSlot.item.itemPrefab, player.position + Vector3.up + Vector3.up + player.forward, Quaternion.identity);
             // Устанавливаем количество объектов такое какое было в слоте
             itemObject.GetComponent<Item>().amount = oldSlot.amount;
             // убираем значения InventorySlot

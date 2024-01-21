@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     public Transform inventoryPanel;
     public List<InventorySlot> slots = new List<InventorySlot>();
     public bool isOpened;
-    public float reachDistance = 3f;
+    public float reachDistance = 5f;
     private Camera mainCamera;
     // Start is called before the first frame update
     private void Awake()
@@ -40,20 +40,14 @@ public class InventoryManager : MonoBehaviour
             {
                 UIBG.SetActive(true);
                 inventoryPanel.gameObject.SetActive(true); // new line
-                // Прекрепляем курсор к середине экрана
-                Cursor.lockState = CursorLockMode.None;
-                // и делаем его невидимым
-                Cursor.visible = true;
+            
 
             }
             else
             {
                 UIBG.SetActive(false);
                 inventoryPanel.gameObject.SetActive(false); // new line
-                // Прекрепляем курсор к середине экрана
-                Cursor.lockState = CursorLockMode.Locked;
-                // и делаем его невидимым
-                Cursor.visible = false;
+               
             }
         }
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
